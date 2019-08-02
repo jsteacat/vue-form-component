@@ -3,7 +3,7 @@
         <slot
             :group="group"
             :fields="fields"
-            :validation="validation"
+            :validation="validationSet"
         />
     </form>
 </template>
@@ -21,8 +21,18 @@
         data() {
             return {
                 fields: {},
-                validation: {},
+                validationSet: {},
             };
+        },
+        created() {
+            EventBus.listen('initialize-' + this.group, this.initialize);
+        },
+        methods: {
+            initialize(data) {
+                if (!this.validationSet.hasOwnProperty(data.field)) {
+                    this.validationSet[data.field] = data.rules;
+                }
+            },
         },
     }
 </script>

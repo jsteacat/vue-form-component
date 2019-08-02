@@ -13,6 +13,8 @@
     >
 </template>
 <script>
+    import Helper from '../../../../core/Helper';
+
     export default {
         name: 'input-text',
         props: {
@@ -45,10 +47,15 @@
             autocomplete: {
                 type: String,
             },
+            validation: {
+                type: [Array, Object],
+                default: () => [],
+            },
         },
         data() {
             return {
                 identity: this.id ? this.id : this.name,
+                displayValidation: false,
             };
         },
         computed: {
@@ -62,10 +69,26 @@
         },
         mounted() {
             this.emit(this.currentValue);
+            this.initialize();
         },
         methods: {
             emit(value) {
                 this.$emit('input', value);
+            },
+            initialize() {
+                if (Helper.isEmpty(this.validation)) return;
+                
+                let rules = this.validation;
+                
+                if (!Array.isArray(this.validation)) {
+                    this.displayValidation = true;
+                    rules = Object.keys(this.validation);
+                }
+                
+                EventBus.fire('initialize-' + this.group, {
+                    field: this.name,
+                    rules
+                });
             },
         },
     }

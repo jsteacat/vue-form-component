@@ -27,6 +27,20 @@
 
                     </div>
 
+                    <div class="cell small-12 medium-6">
+
+                        <input-text
+                                :group="props.group"
+                                name="lastName"
+                                id="last-name"
+                                v-model="props.fields.lastName"
+                                placeholder="Family Name"
+                                maxlength="20"
+                                autocomplete="family-name"
+                        />
+
+                    </div>
+
                 </div>
 
             </fieldset>
