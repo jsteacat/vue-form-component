@@ -14,3 +14,6 @@ window.Vue = require('vue');
 
 import EventBus from './src/core/EventBus';
 window.EventBus = new EventBus;
+
+import ErrorHandler from './src/core/ErrorHandler';
+window.ErrorHandler = ErrorHandler;

@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <button type="button" class="button" @click="trigger">TRIGGER</button>
+
     <form-wrapper group="update-form" v-cloak>
 
         <div slot-scope="props">
@@ -16,13 +18,18 @@
 
                         <input-text
                                 :group="props.group"
-                                name="firstName"
-                                id="first-name"
-                                v-model="props.fields.firstName"
-                                placeholder="First Name"
-                                maxlength="20"
+                                name="first_name"
+                                v-model="props.fields.first_name"
+                                label="First Name: *"
+                                maxlength="30"
                                 autocomplete="given-name"
                                 focus
+                                :validation="{
+                                    'required': 'Укажите имя',
+                                    'min:2': 'Минимум 2 символа',
+                                    'max:30': 'Максимум 30 символов'
+                                }"
+                                :error="props.error"
                         />
 
                     </div>
@@ -31,19 +38,37 @@
 
                         <input-text
                                 :group="props.group"
-                                name="lastName"
-                                id="last-name"
-                                v-model="props.fields.lastName"
-                                placeholder="Family Name"
-                                maxlength="20"
+                                name="last_name"
+                                v-model="props.fields.last_name"
+                                maxlength="30"
                                 autocomplete="family-name"
-                        />
+                                :validation="['required', 'min:2', 'max:30']"
+                                :error="props.error"
+                        >
+                            <validation
+                                label="Family Name: *"
+                                id="last_name"
+                                name="last_name"
+                                :show="props.error.has('last_name')"
+                                :validation="{
+                                    'required': 'Укажите фамилию',
+                                    'min:2': 'Минимум 2 символа',
+                                    'max:30': 'Максимум 30 символов'
+                                }"
+                                :error="props.error"
+                            />
+                        </input-text>
 
                     </div>
 
                 </div>
 
             </fieldset>
+
+            <button type="submit" class="button">
+                <i class="fa fa-check fa-fw"></i>
+                OK
+            </button>
 
         </div>
 

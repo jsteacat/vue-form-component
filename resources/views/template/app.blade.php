@@ -15,6 +15,7 @@
     <div class="grid-container">
         @yield('content')
     </div>
+    <top-dialog :session-dialog="{{ $sessionDialog ?? '{}' }}"></top-dialog>
 </div>
 @stack('footer-scripts')
 <script src="{{ mix('js/app.js') }}"></script>

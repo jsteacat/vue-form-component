@@ -1,24 +1,44 @@
 <template>
-    <input
-        type="text"
-        :group="group"
-        :name="name"
-        :id="identity"
-        :value="value"
-        :placeholder="placeholder"
-        :maxlength="maxlength"
-        :autocomplete="autocomplete"
-        v-focus="focus"
-        v-on="inputCallback"
-    >
+    <div v-show="isVisible" :class="computedWrapperCssClass" :style="computedWrapperCssStyle">
+        <slot>
+            <validation
+                :label="label"
+                :id="identity"
+                :name="name"
+                :show="showValidation"
+                :css-class="computedValidationCssClass"
+                :validation="validation"
+                :error="error"
+            />
+        </slot>
+        <input
+            type="text"
+            :group="group"
+            :name="name"
+            :id="identity"
+            :value="value"
+            :placeholder="placeholder"
+            :maxlength="maxlength"
+            :autocomplete="autocomplete"
+            :class="inputCssClass"
+            v-focus="focus"
+            v-on="inputCallback"
+        >
+    </div>
 </template>
 <script>
+    import Error from '../../Validator/Error';
+    import Validation from '../../Validator/Validation';
     import Helper from '../../../../core/Helper';
 
     export default {
         name: 'input-text',
+        components: { Validation },
         props: {
             group: {
+                type: String,
+            },
+            label: {
                 type: String,
             },
             name: {
@@ -51,11 +71,39 @@
                 type: [Array, Object],
                 default: () => [],
             },
+            error: {
+                type: Object,
+                default: () => new Error,
+            },
+            visible: {
+                type: Boolean,
+                default: true,
+            },
+            inputCssClass: {
+                type: String,
+            },
+            validationCssClass: {
+                type: String,
+            },
+            wrapperCssClass: {
+                type: String,
+            },
+            wrapperErrorCssClass: {
+                type: String,
+                default: 'invalid',
+            },
+            wrapperCssStyle: {
+                type: String,
+            },
+            wrapperErrorCssStyle: {
+                type: String,
+            },
         },
         data() {
             return {
                 identity: this.id ? this.id : this.name,
                 displayValidation: false,
+                isVisible: this.visible,
             };
         },
         computed: {
@@ -65,6 +113,33 @@
                       this.emit(event.target.value);
                     },
                 });
+            },
+            isInvalid() {
+                return this.error.has(this.name);
+            },
+            showValidation() {
+                return this.isInvalid && this.displayValidation;
+            },
+            computedValidationCssClass() {
+                return {
+                    [this.validationCssClass]: this.isInvalid,
+                };
+            },
+            computedWrapperCssClass() {
+                return [
+                    {
+                        [this.wrapperErrorCssClass]: this.isInvalid,
+                    },
+                    this.wrapperCssClass,
+                ];
+            },
+            computedWrapperCssStyle() {
+                return [
+                    {
+                        [this.wrapperErrorCssStyle]: this.isInvalid,
+                    },
+                    this.wrapperCssStyle,
+                ];
             },
         },
         mounted() {
