@@ -37,6 +37,7 @@
         props: {
             group: {
                 type: String,
+                required: true,
             },
             label: {
                 type: String,
@@ -145,6 +146,7 @@
         mounted() {
             this.emit(this.currentValue);
             this.initialize();
+            this.registerListeners();
         },
         methods: {
             emit(value) {
@@ -164,6 +166,16 @@
                     field: this.name,
                     rules
                 });
+            },
+            registerListeners() {
+                EventBus.listen('reset-form-' + this.group, this.reset);
+                EventBus.listen('clear-form-' + this.group, this.clear);
+            },
+            reset() {
+                this.emit(this.currentValue);
+            },
+            clear() {
+                this.emit('');
             },
         },
     }

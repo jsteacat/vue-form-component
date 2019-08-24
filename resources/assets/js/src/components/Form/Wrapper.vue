@@ -22,6 +22,7 @@
         props: {
             group: {
                 type: String,
+                require: true,
             },
             behaviour: {
                 type: String,
@@ -53,7 +54,15 @@
                 }
             },
             reset() {
-            
+                this.cleanse('reset-form');
+            },
+            clear() {
+                this.cleanse('clear-form');
+            },
+            cleanse(event) {
+                this.error.clear();
+                EventBus.fire('clear-top-dialog');
+                EventBus.fire(event + '-' + this.group);
             },
             onSubmit() {
                 if(this.eventSubmitOnly) return;

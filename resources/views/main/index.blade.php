@@ -7,6 +7,7 @@
     <form-wrapper
             group="update-form"
             action="{{ route('main.store') }}"
+            behaviour="confirmWithDialogAndClear"
             v-cloak
     >
 
@@ -34,6 +35,7 @@
                                     'max:30': 'Максимум 30 символов'
                                 }"
                                 :error="props.error"
+                                current-value="Stepan"
                         />
 
                     </div>
@@ -48,6 +50,7 @@
                                 autocomplete="family-name"
                                 :validation="['required', 'min:2', 'max:30']"
                                 :error="props.error"
+                                current-value="Stalenin"
                         >
                             <validation
                                 label="Family Name: *"

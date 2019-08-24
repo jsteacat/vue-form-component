@@ -4,7 +4,16 @@ export default class Behaviour {
         
         form.stopProcessingAjaxCall();
         form.reset();
-        
+        Behaviour.confirm(form, response);
+    }
+    
+    static confirmWithDialogAndClear(form, response) {
+        form.stopProcessingAjaxCall();
+        form.clear();
+        Behaviour.confirm(form, response);
+    }
+    
+    static confirm(form, response) {
         EventBus.fire('top-alert', {
             id: form.group,
             message: response.data.message,
