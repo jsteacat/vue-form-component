@@ -10,11 +10,15 @@
     </form>
 </template>
 <script>
+    import Behaviour from './Behaviour';
     import Error from './Validator/Error';
     import Validator from './Validator/Validator';
+    import AjaxCaller from "../../mixins/AjaxCaller";
+    import ErrorHandler from "../../core/ErrorHandler";
 
     export default {
         name: 'form-wrapper',
+        mixins: [AjaxCaller],
         props: {
             group: {
                 type: String,
@@ -33,6 +37,11 @@
                 error: new Error,
             };
         },
+        computed: {
+            requestData() {
+                return this.fields;
+            },
+        },
         created() {
             EventBus.listen('submit-' + this.group, this.submitEvent);
             EventBus.listen('initialize-' + this.group, this.initialize);
@@ -42,6 +51,9 @@
                 if (!this.validationSet.hasOwnProperty(data.field)) {
                     this.validationSet[data.field] = data.rules;
                 }
+            },
+            reset() {
+            
             },
             onSubmit() {
                 if(this.eventSubmitOnly) return;
@@ -67,11 +79,22 @@
                 return Object.keys(this.validationSet).length > 0;
             },
             makeCall() {
-            
+                EventBus.fire('clear-top-dialog');
+                this.makeAjaxCall(this.callSuccessful, this.callFailed); // from AjaxCaller mixin
+            },
+            callSuccessful(response) {
+                try {
+                    Behaviour[this.behaviour ? this.behaviour : response.data.behaviour](this, response);
+                } catch (error) {
+                    ErrorHandler.showError({
+                        message: 'Invalid form behaviour',
+                    });
+                    this.stopProcessingAjaxCall(); // from AjaxCaller mixin
+                }
             },
             callFailed(error) {
-                // console.log(error);
-                ErrorHandler.showError(error);
+                // ErrorHandler is globally in bootstrap.js
+                ErrorHandler.showError(error, this.stopProcessingAjaxCall);
             },
         },
     }

@@ -6,6 +6,7 @@
 
     <form-wrapper
             group="update-form"
+            action="{{ route('main.store') }}"
             v-cloak
     >
 
