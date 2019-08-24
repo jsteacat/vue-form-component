@@ -22,6 +22,9 @@
             behaviour: {
                 type: String,
             },
+            eventSubmitOnly: {
+                type: Boolean,
+            },
         },
         data() {
             return {
@@ -31,6 +34,7 @@
             };
         },
         created() {
+            EventBus.listen('submit-' + this.group, this.submitEvent);
             EventBus.listen('initialize-' + this.group, this.initialize);
         },
         methods: {
@@ -40,6 +44,10 @@
                 }
             },
             onSubmit() {
+                if(this.eventSubmitOnly) return;
+                this.submitEvent();
+            },
+            submitEvent() {
                 this.validate().then(this.makeCall).catch(this.callFailed);
             },
             validate() {

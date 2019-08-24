@@ -2,9 +2,12 @@
 
 @section('content')
 
-    <button type="button" class="button" @click="trigger">TRIGGER</button>
+{{--    <button type="button" class="button" @click="trigger">TRIGGER</button>--}}
 
-    <form-wrapper group="update-form" v-cloak>
+    <form-wrapper
+            group="update-form"
+            v-cloak
+    >
 
         <div slot-scope="props">
 
