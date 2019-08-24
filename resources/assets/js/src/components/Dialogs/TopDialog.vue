@@ -31,8 +31,10 @@
 </template>
 
 <script>
+    import AjaxCaller from "../../mixins/AjaxCaller";
     export default {
         name: 'top-dialog',
+        mixins: [AjaxCaller],
         props: {
             sessionDialog: {
                 type: Object,
@@ -45,7 +47,6 @@
                 type: null,
                 timeout: null,
                 message: '',
-                processing: false,
                 url: null,
                 data: {},
                 methodType: 'get',
@@ -93,8 +94,7 @@
                 this.url = null;
                 this.data = {};
                 this.methodType = 'get';
-                this.processing = false;
-                
+                this.stopProcessingAjaxCall();
                 EventBus.fire(this.id + '-cleared', data || {});
             },
             clearCountDown() {
@@ -123,7 +123,7 @@
                 this.type = 'confirm';
                 if (url) this.url = url;
                 if (data) this.data = data;
-                if (method) this.methodType = method.toLocaleLowerCase();
+                if (method) this.methodType = method.toLowerCase();
             },
             countDown() {
                 this.timeout = setTimeout(() => {
@@ -131,9 +131,15 @@
                 }, 7000);
             },
             makeCall() {
-                this.processing = true;
+                this.startProcessingAjaxCall(); // from AjaxCaller mixin
                 if (this.url) {
-                
+                    this.makeAjaxRequest( // from AjaxCaller mixin
+                        this.success,
+                        this.failure,
+                        this.data,
+                        this.url,
+                        this.methodType,
+                    );
                 } else {
                     this.success();
                 }
@@ -143,7 +149,19 @@
                     response,
                     dialog: this,
                 });
-            }
+            },
+            failure(error) {
+                this.stopProcessingAjaxCall(); // from AjaxCaller mixin
+                if (error.response) {
+                    error = `Error code: ${error.response.status} (${error.response.statusText})`;
+                } else {
+                    error = error.message;
+                }
+                this.warningEvent({
+                    id: this.id,
+                    message: error,
+                });
+            },
         },
     };
 </script>

@@ -3,6 +3,24 @@ require('./directives');
 require('./components');
 
 (new Vue({ el: '#app'}));
+
+// for AjaxCaller testing
+// (new Vue({
+//     el: '#app',
+//     methods: {
+//         trigger() {
+//             EventBus.fire('top-confirm', {
+//                 id: 'testButton',
+//                 message: 'Testing event handling',
+//                 url: '/home',
+//                 method: 'post',
+//                 data: { test: true },
+//             });
+//         },
+//     },
+// }));
+
+// for trigger button testing
 // (new Vue({
 //     el: '#app',
 //     mounted() {

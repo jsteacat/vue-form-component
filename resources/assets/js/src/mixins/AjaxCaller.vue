@@ -1,0 +1,65 @@
+<script>
+    export default {
+        props: {
+            action: {
+                type: String,
+                default: '/',
+            },
+            method: {
+                type: String,
+                default: 'post',
+            },
+        },
+        data() {
+            return {
+                processing: false,
+            };
+        },
+        computed: {
+            endPoint() {
+                return this.action;
+            },
+            requestData() {
+                return {};
+            },
+        },
+        methods: {
+            makeAjaxCall(success, failure) {
+                this.startProcessingAjaxCall();
+                this.makeAjaxRequest(success, failure);
+            },
+            startProcessingAjaxCall() {
+                this.processing = true;
+                this.startProcessingAjaxCallEvent();
+            },
+            startProcessingAjaxCallEvent() {
+            
+            },
+            stopProcessingAjaxCall() {
+                this.processing = false;
+                this.stopProcessingAjaxCallEvent();
+            },
+            stopProcessingAjaxCallEvent() {
+        
+            },
+            makeAjaxRequest(success, failure, data, url, method) {
+                let requestData = {
+                    url: url || this.endPoint,
+                    method: (method || this.method).toLowerCase(),
+                    params: {},
+                    data: {},
+                };
+                
+                if (['post', 'put', 'patch'].includes(requestData.method)) {
+                    requestData.data = data || this.requestData;
+                } else {
+                    requestData.params = data || this.requestData;
+                }
+                // axios is globally in bootstrap.js
+                axios.request(requestData)
+                    .then(success)
+                    .catch(failure);
+            },
+        },
+    };
+</script>
