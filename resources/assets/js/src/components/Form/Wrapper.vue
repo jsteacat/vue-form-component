@@ -5,7 +5,10 @@
             :fields="fields"
             :validation="validationSet"
             :error="error"
+            :reset="reset"
+            :clear="clear"
             :submit="onSubmit"
+            :processing="processing"
         />
     </form>
 </template>
@@ -46,6 +49,8 @@
         created() {
             EventBus.listen('submit-' + this.group, this.submitEvent);
             EventBus.listen('initialize-' + this.group, this.initialize);
+            EventBus.listen('reset-' + this.group, this.reset);
+            EventBus.listen('clear-' + this.group, this.clear);
         },
         methods: {
             initialize(data) {

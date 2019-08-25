@@ -72,10 +72,7 @@
 
             </fieldset>
 
-            <button type="submit" class="button">
-                <i class="fa fa-check fa-fw"></i>
-                OK
-            </button>
+            @include('template.partials.form-buttons-attached')
 
         </div>
 
