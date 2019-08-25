@@ -8,6 +8,7 @@
             group="update-form"
             action="{{ route('main.store') }}"
             behaviour="confirmWithDialogAndClear"
+{{--            :disabled="true"--}}
             v-cloak
     >
 
@@ -36,6 +37,7 @@
                                 }"
                                 :error="props.error"
                                 current-value="Stepan"
+                                :disabled="props.isDisabled"
                         />
 
                     </div>
@@ -51,6 +53,7 @@
                                 :validation="['required', 'min:2', 'max:30']"
                                 :error="props.error"
                                 current-value="Stalenin"
+                                :disabled="props.isDisabled"
                         >
                             <validation
                                 label="Family Name: *"
@@ -71,6 +74,9 @@
                 </div>
 
             </fieldset>
+
+{{--            <button type="button" class="button" @click="props.enable">Enable</button>--}}
+{{--            <button type="button" class="button" @click="props.disable">Disable</button>--}}
 
             @include('template.partials.form-buttons-attached')
 

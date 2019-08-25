@@ -32,16 +32,12 @@
                 this.processing = true;
                 this.startProcessingAjaxCallEvent();
             },
-            startProcessingAjaxCallEvent() {
-            
-            },
+            startProcessingAjaxCallEvent() {},
             stopProcessingAjaxCall() {
                 this.processing = false;
                 this.stopProcessingAjaxCallEvent();
             },
-            stopProcessingAjaxCallEvent() {
-        
-            },
+            stopProcessingAjaxCallEvent() {},
             makeAjaxRequest(success, failure, data, url, method) {
                 let requestData = {
                     url: url || this.endPoint,

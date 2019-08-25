@@ -21,6 +21,7 @@
             :maxlength="maxlength"
             :autocomplete="autocomplete"
             :class="inputCssClass"
+            :disabled="isDisabled"
             v-focus="focus"
             v-on="inputCallback"
         >
@@ -30,9 +31,11 @@
     import Error from '../../Validator/Error';
     import Validation from '../../Validator/Validation';
     import Helper from '../../../../core/Helper';
+    import Disabler from "../../../../mixins/Disabler";
 
     export default {
         name: 'input-text',
+        mixins: [Disabler],
         components: { Validation },
         props: {
             group: {
@@ -176,6 +179,12 @@
             },
             clear() {
                 this.emit('');
+            },
+        },
+        watch: {
+            disabled(isDisabled) {
+                if (isDisabled) this.disable();
+                else this.enable();
             },
         },
     }

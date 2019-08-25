@@ -5,6 +5,7 @@
         <button
             type="submit"
             class="expanded button"
+            :disabled="props.isDisabled"
             v-show="!props.processing"
         >
             <i class="fas fa-check fa-fw"></i>
@@ -30,6 +31,7 @@
             <button
                 type="button"
                 class="alert button"
+                :disabled="props.isDisabled"
                 @click="props.reset"
             >
                 <i class="fas fa-eraser fa-fw"></i>
@@ -39,6 +41,7 @@
             <button
                     type="button"
                     class="warning button"
+                    :disabled="props.isDisabled"
                     @click="props.clear"
             >
                 <i class="fas fa-times fa-fw"></i>
