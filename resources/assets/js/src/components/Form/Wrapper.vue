@@ -36,11 +36,16 @@
             },
             eventSubmitOnly: {
                 type: Boolean,
+                default: false,
+            },
+            collections: {
+                type: Object,
+                default: () => { return {}; },
             },
         },
         data() {
             return {
-                fields: {},
+                fields: {...this.collections},
                 validationSet: {},
                 error: new Error,
             };

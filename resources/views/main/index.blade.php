@@ -2,16 +2,17 @@
 
 @section('content')
 
-    @include('template.partials.form-buttons-detached', ['group' => 'update-form'])
+{{--    @include('template.partials.form-buttons-detached', ['group' => 'update-form'])--}}
 
 {{--    <button type="button" class="button" @click="trigger">TRIGGER</button>--}}
 
     <form-wrapper
-            group="update-form"
-            action="{{ route('main.store') }}"
-            behaviour="confirmWithDialogAndClear"
-{{--            :disabled="true"--}}
-            v-cloak
+        group="update-form"
+        action="{{ route('main.store') }}"
+        behaviour="confirmWithDialogAndClear"
+{{--        :disabled="true"--}}
+        :collections="{ address: {} }"
+        v-cloak
     >
 
         <div slot-scope="props">
@@ -25,21 +26,21 @@
                     <div class="cell small-12 medium-6">
 
                         <input-text
-                                :group="props.group"
-                                name="first_name"
-                                v-model="props.fields.first_name"
-                                label="First Name: *"
-                                maxlength="30"
-                                autocomplete="given-name"
-                                focus
-                                :validation="{
-                                    'required': 'Укажите имя',
-                                    'min:2': 'Минимум 2 символа',
-                                    'max:30': 'Максимум 30 символов'
-                                }"
-                                :error="props.error"
-                                current-value="Stepan"
-                                :disabled="props.isDisabled"
+                            :group="props.group"
+                            name="first_name"
+                            v-model="props.fields.first_name"
+                            label="First Name: *"
+                            maxlength="30"
+                            autocomplete="given-name"
+                            focus
+                            :validation="{
+                                'required': 'Укажите имя',
+                                'min:2': 'Минимум 2 символа',
+                                'max:30': 'Максимум 30 символов'
+                            }"
+                            :error="props.error"
+                            current-value="Stepan"
+                            :disabled="props.isDisabled"
                         />
 
                     </div>
@@ -47,29 +48,110 @@
                     <div class="cell small-12 medium-6">
 
                         <input-text
-                                :group="props.group"
-                                name="last_name"
-                                v-model="props.fields.last_name"
-                                maxlength="30"
-                                autocomplete="family-name"
-                                :validation="['required', 'min:2', 'max:30']"
-                                :error="props.error"
-                                current-value="Stalenin"
-                                :disabled="props.isDisabled"
-                        >
-                            <validation
-                                label="Family Name: *"
-                                id="last_name"
-                                name="last_name"
-                                :show="props.error.has('last_name')"
-                                :validation="{
-                                    'required': 'Укажите фамилию',
-                                    'min:2': 'Минимум 2 символа',
-                                    'max:30': 'Максимум 30 символов'
-                                }"
-                                :error="props.error"
-                            />
-                        </input-text>
+                            :group="props.group"
+                            name="last_name"
+                            v-model="props.fields.last_name"
+                            label="Family Name: *"
+                            maxlength="30"
+                            autocomplete="family-name"
+                            :validation="{
+                                'required': 'Укажите фамилию',
+                                'min:2': 'Минимум 2 символа',
+                                'max:30': 'Максимум 30 символов'
+                            }"
+                            :error="props.error"
+                            current-value="Stalenin"
+                            :disabled="props.isDisabled"
+                        />
+
+                    </div>
+
+                    <div class="cell small-12 medium-6">
+
+                        <input-email
+                            :group="props.group"
+                            name="email"
+                            v-model="props.fields.email"
+                            label="Email: *"
+                            :validation="{
+                                'required': 'Укажите Email',
+                                'email': 'Неверный формат'
+                            }"
+                            :error="props.error"
+                        />
+
+                    </div>
+
+                    <div class="cell small-12 medium-6">
+
+                        <input-password
+                            :group="props.group"
+                            name="password"
+                            v-model="props.fields.password"
+                            label="Password: *"
+                            autocomplete="off"
+                            :validation="{
+                                'required': 'Введите пароль',
+                                'password': 'Неверный формат'
+                            }"
+                            :error="props.error"
+                        />
+
+                    </div>
+
+                    <div class="cell small-12 medium-6">
+
+                        <input-text
+                            :group="props.group"
+                            name="address.line_1"
+                            v-model="props.fields.address.line_1"
+                            label="Address line 1: *"
+                            :validation="{
+                                'required': 'Укажите адрес'
+                            }"
+                            :error="props.error"
+                        />
+
+                    </div>
+
+                    <div class="cell small-12 medium-6">
+
+                        <input-text
+                            :group="props.group"
+                            name="address.line_2"
+                            v-model="props.fields.address.line_2"
+                            label="Address line 2:"
+                        />
+
+                    </div>
+
+                    <div class="cell small-12 medium-6">
+
+                        <input-text
+                            :group="props.group"
+                            name="address.town"
+                            v-model="props.fields.address.town"
+                            label="Town: *"
+                            :validation="{
+                                'required': 'Укажите город'
+                            }"
+                            :error="props.error"
+                        />
+
+                    </div>
+
+                    <div class="cell small-12 medium-6">
+
+                        <input-text
+                            :group="props.group"
+                            name="address.post_code"
+                            v-model="props.fields.address.post_code"
+                            label="Post code: *"
+                            :validation="{
+                                'required': 'Укажите индекс'
+                            }"
+                            :error="props.error"
+                        />
 
                     </div>
 
