@@ -1,5 +1,13 @@
 <template>
-    <span :class="cssClass" v-html="label" @click="trigger"></span>
+    <span :class="cssClass" @click="trigger">
+        <slot name="label-on" v-if="!processing">
+            <i class="fas fa-check fa-fw"></i> SUBMIT
+        </slot>
+        
+        <slot name="label-off" v-if="processing">
+            <i class="fas fa-spinner fa-spin fa-fw"></i> PROCESSING
+        </slot>
+    </span>
 </template>
 
 <script>
@@ -21,24 +29,11 @@
                 type: String,
                 default: 'items',
             },
-            restingLabel: {
-                type: String,
-                default: 'SUBMIT',
-            },
             restingCssClass: {
                 type: String,
-            },
-            restingIcon: {
-                type: String,
-            },
-            workingLabel: {
-                type: String,
-                default: 'PROCESSING',
+                default: 'button',
             },
             workingCssClass: {
-                type: String,
-            },
-            workingIcon: {
                 type: String,
             },
         },
@@ -49,14 +44,8 @@
         },
         computed: {
             cssClass() {
-                if (this.processing) return [this.workingCssClass ? this.workingCssClass : this.restingCssClass, 'disabled'];
+                if (this.processing) return [this.workingCssClass || this.restingCssClass, 'disabled'];
                 return [this.restingCssClass, { disabled: this.isDisabled }];
-            },
-            label() {
-                if (this.processing) {
-                    return (this.workingIcon ? `<i class="${this.workingIcon}"></i> ` : '') + this.workingLabel;
-                }
-                return (this.restingIcon ? `<i class="${this.restingIcon}"></i> ` : '') + this.restingLabel;
             },
         },
         created() {

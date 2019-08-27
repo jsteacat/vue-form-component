@@ -6,10 +6,7 @@
             group="{{ $group }}"
             fire="submit"
             :is-submit="true"
-            resting-label="SUBMIT"
             resting-css-class="expanded button"
-            resting-icon="fas fa-check fa-fw"
-            working-icon="fas fa-spinner fa-spin fa-fw"
         ></form-trigger>
 
     </div>
@@ -19,21 +16,23 @@
         <nav class="expanded button-group">
 
             <form-trigger
-                    group="{{ $group }}"
-                    fire="reset"
-                    resting-label="RESET"
-                    resting-css-class="alert button"
-                    resting-icon="fas fa-eraser fa-fw"
-                    working-icon="fas fa-spinner fa-spin fa-fw"
-            ></form-trigger>
+                group="{{ $group }}"
+                fire="reset"
+                resting-css-class="alert button"
+            >
+                <template slot="label-on">
+                    <i class="fas fa-eraser fa-fw"></i> RESET
+                </template>
+            </form-trigger>
             <form-trigger
-                    group="{{ $group }}"
-                    fire="clear"
-                    resting-label="CLEAR"
-                    resting-css-class="warning button"
-                    resting-icon="fas fa-times fa-fw"
-                    working-icon="fas fa-spinner fa-spin fa-fw"
-            ></form-trigger>
+                group="{{ $group }}"
+                fire="clear"
+                resting-css-class="warning button"
+            >
+                <template slot="label-on">
+                    <i class="fas fa-times fa-fw"></i> CLEAR
+                </template>
+            </form-trigger>
 
         </nav>
 
