@@ -54,9 +54,9 @@
             },
             label() {
                 if (this.processing) {
-                    return (this.workingIcon ? `<i class="${this.workingIcon}"><i> ` : '') + this.workingLabel;
+                    return (this.workingIcon ? `<i class="${this.workingIcon}"></i> ` : '') + this.workingLabel;
                 }
-                return (this.restingIcon ? `<i class="${this.restingIcon}"><i> ` : '') + this.restingLabel;
+                return (this.restingIcon ? `<i class="${this.restingIcon}"></i> ` : '') + this.restingLabel;
             },
         },
         created() {

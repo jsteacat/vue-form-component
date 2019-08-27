@@ -65,10 +65,16 @@
         },
         methods: {
             startProcessingAjaxCallEvent() {
-                EventBus.fire('disable-started-' + this.group);
+                EventBus.fire([
+                    'submission-started-' + this.group,
+                    'disable-started-' + this.group
+                ]);
             },
             stopProcessingAjaxCallEvent() {
-                EventBus.fire('disable-ended-' + this.group);
+                EventBus.fire([
+                    'submission-ended-' + this.group,
+                    'disable-ended-' + this.group
+                ]);
             },
             initialize(data) {
                 if (!this.validationSet.hasOwnProperty(data.field)) {

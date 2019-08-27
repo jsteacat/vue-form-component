@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('template.partials.form-buttons-detached', ['group' => 'update-form'])
+
 {{--    <button type="button" class="button" @click="trigger">TRIGGER</button>--}}
 
     <form-wrapper
