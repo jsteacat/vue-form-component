@@ -14,3 +14,4 @@ Vue.component('input-time', require('./src/components/Form/Inputs/Input/Time').d
 
 Vue.component('input-checkbox', require('./src/components/Form/Inputs/Input/CheckBox/CheckBox').default);
 Vue.component('input-checkbox-group', require('./src/components/Form/Inputs/Input/CheckBox/CheckBoxGroup').default);
+Vue.component('input-master-checkbox', require('./src/components/Form/Inputs/Input/CheckBox/MasterCheckBox').default);

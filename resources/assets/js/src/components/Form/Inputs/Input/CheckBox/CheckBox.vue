@@ -60,8 +60,24 @@
             this.update();
             this.initialize();
             this.registerListeners();
+            this.registerCustomListeners();
         },
         methods: {
+            registerCustomListeners() {
+                if (this.listen) {
+                    EventBus.listen(this.listen, checked => {
+                        this.checked = checked;
+                        this.emitFireEvent();
+                    });
+                }
+            },
+            emitFireEvent() {
+                BaseInput.methods.emitFireEvent.call(this, {
+                    value: this.trueValue,
+                    remove: !this.checked,
+                });
+                this.$emit('input', this.valueToEmit);
+            },
             isSelected() {
                 return this.currentValue === this.trueValue;
             },
