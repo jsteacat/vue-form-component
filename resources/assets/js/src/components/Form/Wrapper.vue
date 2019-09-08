@@ -19,6 +19,7 @@
     import Behaviour from './Behaviour';
     import Error from './Validator/Error';
     import Validator from './Validator/Validator';
+    import Helper from "../../core/Helper";
     import AjaxCaller from "../../mixins/AjaxCaller";
     import Disabler from "../../mixins/Disabler";
     import ErrorHandler from "../../core/ErrorHandler";
@@ -62,6 +63,7 @@
             EventBus.listen('clear-' + this.group, this.clear);
             EventBus.listen('disabled-started-' + this.group, this.disable);
             EventBus.listen('disabled-ended-' + this.group, this.enable);
+            EventBus.listen('remove-field-' + this.group, this.removeField);
         },
         mounted() {
             if (this.isDisabled) {
@@ -104,6 +106,9 @@
             clearNotifications() {
                 this.error.clear();
                 EventBus.fire('clear-top-dialog');
+            },
+            removeField(field) {
+                Helper.removeObjectProperties(this, [field], this.fields);
             },
             onSubmit() {
                 if(this.eventSubmitOnly) return;

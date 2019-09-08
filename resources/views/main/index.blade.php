@@ -159,6 +159,65 @@
 
             </fieldset>
 
+            <div class="grid-x grid-margin-x">
+
+                <div class="cell small-12 medium-6">
+
+                    <fieldset class="fieldset">
+
+                        <legend>Consents</legend>
+
+                        <div class="checkbox-group">
+
+                            <input-checkbox
+                                :group="props.group"
+                                name="share"
+                                label="Please share my data with third party"
+                                v-model="props.fields.share"
+                                :validation="{
+                                    'required': 'Invalid selection',
+                                    'in:a': 'We have to share your data'
+                                }"
+                                :error="props.error"
+                                current-value="a"
+                                true-value="a"
+                                false-value="b"
+                                validation-css-class="block"
+                            ></input-checkbox>
+
+                            <input-checkbox
+                                :group="props.group"
+                                name="privacy"
+                                label="I agree with the privacy policy"
+                                v-model="props.fields.privacy"
+                                :validation="{
+                                    'required': 'You have to agree with our privacy policy'
+                                }"
+                                :error="props.error"
+                                remove-when-false
+                                validation-css-class="block"
+                            ></input-checkbox>
+
+                            <input-checkbox
+                                :group="props.group"
+                                name="terms"
+                                label="I agree with the terms & conditions"
+                                v-model="props.fields.terms"
+                                :validation="{
+                                    'accepted': 'You have to agree with our terms & conditions'
+                                }"
+                                :error="props.error"
+                                validation-css-class="block"
+                            ></input-checkbox>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+            </div>
+
 {{--            <button type="button" class="button" @click="props.enable">Enable</button>--}}
 {{--            <button type="button" class="button" @click="props.disable">Disable</button>--}}
 

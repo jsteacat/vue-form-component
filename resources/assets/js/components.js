@@ -11,3 +11,5 @@ Vue.component('input-hidden', require('./src/components/Form/Inputs/Input/Hidden
 Vue.component('input-number', require('./src/components/Form/Inputs/Input/Number').default);
 Vue.component('input-password', require('./src/components/Form/Inputs/Input/Password').default);
 Vue.component('input-time', require('./src/components/Form/Inputs/Input/Time').default);
+
+Vue.component('input-checkbox', require('./src/components/Form/Inputs/Input/CheckBox/CheckBox').default);
