@@ -11,7 +11,7 @@
         action="{{ route('main.store') }}"
         behaviour="confirmWithDialogAndClear"
 {{--        :disabled="true"--}}
-        :collections="{ address: {} }"
+        :collections="{ address: {}, colours: [] }"
         v-cloak
     >
 
@@ -209,6 +209,56 @@
                                 :error="props.error"
                                 validation-css-class="block"
                             ></input-checkbox>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div class="cell small-12 medium-6">
+
+                    <fieldset class="fieldset">
+
+                        <legend>Colours (exactly 2 items)</legend>
+
+                        <validation
+                            id="colours"
+                            name="colours"
+                            :show="props.error.has('colours')"
+                            :validation="{
+                                'required': 'Please select exactly 2 items',
+                                'min:2': 'Please select exactly 2 items',
+                                'max:2': 'Please select exactly 2 items',
+                            }"
+                            :error="props.error"
+                            css-class="block"
+                        ></validation>
+
+                        <div class="checkbox-group">
+
+                            <input-checkbox-group
+                                :group="props.group"
+                                name="colours"
+                                :current-value="['blue']"
+                                :options="[
+                                    {
+                                        name: 'Blue',
+                                        value: 'blue'
+                                    },
+                                    {
+                                        name: 'Green',
+                                        value: 'green'
+                                    },
+                                    {
+                                        name: 'Orange',
+                                        value: 'orange'
+                                    },
+                                ]"
+                                v-model="props.fields.colours"
+                                :validation="['required', 'min:2', 'max:2']"
+                                :error="props.error"
+                            ></input-checkbox-group>
 
                         </div>
 

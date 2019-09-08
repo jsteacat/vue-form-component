@@ -13,3 +13,4 @@ Vue.component('input-password', require('./src/components/Form/Inputs/Input/Pass
 Vue.component('input-time', require('./src/components/Form/Inputs/Input/Time').default);
 
 Vue.component('input-checkbox', require('./src/components/Form/Inputs/Input/CheckBox/CheckBox').default);
+Vue.component('input-checkbox-group', require('./src/components/Form/Inputs/Input/CheckBox/CheckBoxGroup').default);

@@ -28,6 +28,10 @@
             currentValue: {
                 default: '',
             },
+            options: {
+                type: [Array, Object, String],
+                default: () => [],
+            },
             placeholder: {
                 type: String,
             },
@@ -149,7 +153,11 @@
             },
             clear() {
                 console.log('Please provide clear method implementation for ' + this.name);
-            }
+            },
+            getOptionId(option) {
+                if (option.id) return option.id;
+                return this.name + '-' + option.value;
+            },
         },
         watch: {
             disabled(isDisabled) {
