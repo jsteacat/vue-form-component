@@ -62,15 +62,9 @@
             validationCssClass: {
                 type: String,
             },
-            wrapperCssClass: {
-                type: String,
-            },
             wrapperErrorCssClass: {
                 type: String,
                 default: 'invalid',
-            },
-            wrapperCssStyle: {
-                type: String,
             },
             wrapperErrorCssStyle: {
                 type: String,
@@ -97,25 +91,13 @@
                 return this.isInvalid && this.displayValidation;
             },
             computedValidationCssClass() {
-                return {
-                    [this.validationCssClass]: this.isInvalid,
-                };
+                return { [this.validationCssClass]: this.isInvalid };
             },
             computedWrapperCssClass() {
-                return [
-                    {
-                        [this.wrapperErrorCssClass]: this.isInvalid,
-                    },
-                    this.wrapperCssClass,
-                ];
+                return { [this.wrapperErrorCssClass]: this.isInvalid };
             },
             computedWrapperCssStyle() {
-                return [
-                    {
-                        [this.wrapperErrorCssStyle]: this.isInvalid,
-                    },
-                    this.wrapperCssStyle,
-                ];
+                return { [this.wrapperErrorCssStyle]: this.isInvalid };
             },
         },
         methods: {

@@ -11,19 +11,12 @@
             },
         },
         created() {
-            EventBus.listen('submission-started-' + this.group, () => {
-                if (this.isSubmit) {
-                    this.processing = true;
-                }
-            });
+            EventBus.listen('submission-started-' + this.group, this.startProcessing);
     
-            EventBus.listen('submission-ended-' + this.group, () => {
-                this.processing = false;
-            });
+            EventBus.listen('submission-ended-' + this.group, this.stopProcessing);
         },
         methods: {
             trigger() {
-                if (this.isDisabled) return;
                 EventBus.fire(this.fire + '-' + this.group);
             },
         },
